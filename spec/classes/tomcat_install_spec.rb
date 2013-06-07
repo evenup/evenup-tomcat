@@ -3,11 +3,12 @@ require 'spec_helper'
 describe 'tomcat::install', :type => :class do
   let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat' } }
   let(:params) { {
-    :install_dir => '/install_path',
-    :log_dir     => '/mylogs',
-    :sites_dir   => '/data/sites',
-    :version     => '7.0.20',
-    :real_url    => 'http://mysite/tomcat.tar.gz',
+    :install_dir  => '/install_path',
+    :log_dir      => '/mylogs',
+    :sites_dir    => '/data/sites',
+    :version      => '7.0.20',
+    :auto_upgrade => false,
+    :real_url     => 'http://mysite/tomcat.tar.gz',
   } }
 
   it { should create_class('tomcat::install') }
@@ -16,7 +17,7 @@ describe 'tomcat::install', :type => :class do
   it { should contain_file('/etc/init.d/tomcat').with_mode('0555') }
   it { should contain_exec('fetch_tomcat') }
   it { should contain_exec('extract_tomcat') }
-  it { should contain_file('/install_path/tomcat') }
+  it { should contain_file('/install_path/tomcat').with_replace(false) }
   it { should contain_file('/mylogs').with(
     'owner' => 'tomcat',
     'group' => 'tomcat'
@@ -47,6 +48,19 @@ describe 'tomcat::install', :type => :class do
   context "when on a vagrant machine" do
     let(:facts) { { :disposition => 'vagrant', :concat_basedir => '/var/lib/puppet/concat' } }
     it { should contain_file('/data/sites').with_mode('0777') }
+  end
+
+  context "when upgrading" do
+    let(:params) { {
+      :install_dir  => '/install_path',
+      :log_dir      => '/mylogs',
+      :sites_dir    => '/data/sites',
+      :version      => '7.0.20',
+      :auto_upgrade => true,
+      :real_url     => 'http://mysite/tomcat.tar.gz',
+    } }
+
+    it { should contain_file('/install_path/tomcat').with_replace(true) }
   end
 
 end

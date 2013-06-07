@@ -21,6 +21,10 @@
 #   String.  Version of tomcat to be installed
 #   Default: 7.0.40
 #
+# [*auto_upgrade*]
+#   Boolean.  Whether puppet will update the symlink for newer versions of tomcat
+#   Default: false
+#
 # [*static_url*]
 #   String.  URL to download tomcat from
 #   Default: '' (apache mirror)
@@ -55,6 +59,7 @@ class tomcat(
   $log_dir        = '/var/log/tomcat',
   $sites_sub_dir  = 'sites',
   $version        = '7.0.40',
+  $auto_upgrade   = false,
   $static_url     = '',
   $admin_pass     = 'changeme',
   $monitoring     = '',
@@ -68,11 +73,12 @@ class tomcat(
   require java
 
   class { 'tomcat::install':
-    install_dir => $install_dir,
-    log_dir     => $log_dir,
-    sites_dir   => $sites_dir,
-    version     => $version,
-    real_url    => $real_url,
+    install_dir   => $install_dir,
+    log_dir       => $log_dir,
+    sites_dir     => $sites_dir,
+    version       => $version,
+    auto_upgrade  => $auto_upgrade,
+    real_url      => $real_url,
   }
 
   class { 'tomcat::config':

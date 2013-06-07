@@ -17,6 +17,7 @@ class tomcat::install(
   $log_dir,
   $sites_dir,
   $version,
+  $auto_upgrade,
   $real_url,
 ) {
 
@@ -72,6 +73,7 @@ class tomcat::install(
     ensure  => 'link',
     target  => "${install_dir}/apache-tomcat-${version}",
     require => Exec['extract_tomcat'],
+    replace => $auto_upgrade,
   }
 
   file { $sites_dir:
