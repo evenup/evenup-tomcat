@@ -82,7 +82,7 @@ class tomcat(
 
   class { 'tomcat::service':
     monitoring  => $monitoring,
-   }
+  }
 
   # Containment
   anchor { 'tomcat::begin': }

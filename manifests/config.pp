@@ -70,7 +70,7 @@ class tomcat::config(
       owner   => tomcat,
       group   => tomcat,
       mode    => 0444,
-      notify  => Class['tomcat::service'];
+      notify  => Class['tomcat::service'],
   }
 
   concat::fragment{ 'server_xml_header':
@@ -82,14 +82,14 @@ class tomcat::config(
   concat::fragment{ 'server_xml_footer':
     target  => "${install_dir}/tomcat/conf/server.xml",
     content => template('tomcat/server.xml.footer'),
-    order   => 99;
+    order   => 99,
   }
 
   # Logrotate for tomcat logs
   logrotate::file { 'tomcat':
-    log     => "${log_dir}/catalina.out",
+    ensure  => 'present',
+    log     => "${tomcat::log_dir}/catalina.out",
     options => ['missingok', 'notifempty', 'copytruncate', 'sharedscripts', 'daily', 'compress'],
-    ensure  => 'present';
   }
 
 }

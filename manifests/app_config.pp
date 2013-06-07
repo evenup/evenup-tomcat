@@ -70,7 +70,7 @@ define tomcat::app_config(
       ensure  => file,
       owner   => tomcat,
       group   => admin,
-      mode    => 0440,
+      mode    => '0440',
       content => $content,
       notify  => $real_notify,
       replace => $replace,

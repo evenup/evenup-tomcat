@@ -44,7 +44,7 @@ class tomcat::install(
 
   file { '/etc/init.d/tomcat':
     ensure => file,
-    mode   => 0555,
+    mode   => '0555',
     owner  => root,
     group  => root,
     source => 'puppet:///modules/tomcat/tomcat.init';
@@ -88,7 +88,7 @@ class tomcat::install(
 
   file { $log_dir:
     ensure => directory,
-    mode   => 0644,
+    mode   => '0644',
     owner  => tomcat,
     group  => tomcat,
   }

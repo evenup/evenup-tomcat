@@ -26,6 +26,7 @@ class tomcat::service (
     'sensu':  {
       class { 'tomcat::monitoring::sensu': }
     }
+    default: {}
   }
 
 }
