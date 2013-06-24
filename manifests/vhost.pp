@@ -57,8 +57,8 @@ define tomcat::vhost (
   include tomcat
 
   $sites_mode = $::disposition ? {
-    dev     => '0777',
-    default => '0775',
+    /(dev|vagrant)/ => '0777',
+    default         => '0775',
   }
 
   $hostname_real = $hostname ? {
@@ -70,18 +70,16 @@ define tomcat::vhost (
 
   $appBase_real = "sites/${hostname_real}"
 
-  file {
-    "${install_dir}/tomcat/sites/${hostname_real}":
-      ensure  => directory,
-      owner   => tomcat,
-      group   => tomcat,
-      mode    => $sites_mode;
+  file { "${install_dir}/tomcat/sites/${hostname_real}":
+    ensure  => directory,
+    owner   => tomcat,
+    group   => tomcat,
+    mode    => $sites_mode,
   }
 
-  concat::fragment{
-    "server_xml_${name}":
-      target  => "${install_dir}/tomcat/conf/server.xml",
-      content => template('tomcat/vhost.xml'),
-      order   => 10;
+  concat::fragment{ "server_xml_${name}":
+    target  => "${install_dir}/tomcat/conf/server.xml",
+    content => template('tomcat/vhost.xml'),
+    order   => 10,
   }
 }

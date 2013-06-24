@@ -69,7 +69,7 @@ define tomcat::app_config(
     "${tomcat::sites_dir}/${site}/${app}/${file}":
       ensure  => file,
       owner   => tomcat,
-      group   => admin,
+      group   => tomcat,
       mode    => '0440',
       content => $content,
       notify  => $real_notify,
