@@ -1,14 +1,14 @@
-#!/bin/bash  
+#!/bin/bash
 # Maintained by pppet - do not modify
 #
-# description: Tomcat Start Stop Restart  
-# processname: tomcat  
-# chkconfig: 234 20 80  
+# description: Tomcat Start Stop Restart
+# processname: tomcat
+# chkconfig: 234 20 80
 source /etc/profile.d/java.sh
-PATH=$JAVA_HOME/bin:$PATH  
-export PATH  
-CATALINA_HOME=/usr/share/tomcat
-  
+PATH=$JAVA_HOME/bin:$PATH
+export PATH
+CATALINA_HOME=<%= scope.lookupvar('install_dir') %>
+
 case $1 in
 	start)
 		/bin/su tomcat $CATALINA_HOME/bin/startup.sh
