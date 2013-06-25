@@ -44,11 +44,11 @@ class tomcat::install(
   }
 
   file { '/etc/init.d/tomcat':
-    ensure => file,
-    mode   => '0555',
-    owner  => root,
-    group  => root,
-    source => 'puppet:///modules/tomcat/tomcat.init';
+    ensure  => file,
+    mode    => '0555',
+    owner   => root,
+    group   => root,
+    content => template('tomcat/tomcat.init'),
   }
 
   exec { 'fetch_tomcat':

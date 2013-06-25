@@ -14,10 +14,10 @@ case $1 in
 		/bin/su tomcat $CATALINA_HOME/bin/startup.sh
 		;;
 	stop)
-		/bin/su tomcat $CATALINA_HOME/bin/shutdown.sh
+		/bin/su tomcat $CATALINA_HOME/bin/shutdown.sh -force
 		;;
 	restart)
-		/bin/su tomcat $CATALINA_HOME/bin/shutdown.sh
+		/bin/su tomcat $CATALINA_HOME/bin/shutdown.sh -force
 		/bin/su tomcat $CATALINA_HOME/bin/startup.sh
 		;;
 	esac

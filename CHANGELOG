@@ -1,5 +1,6 @@
 v0.7.1:
   Fix init script
+  Tomcat force shutdown
 v0.7.0:
   Add auto_upgrade parameter
 v0.6.2:
