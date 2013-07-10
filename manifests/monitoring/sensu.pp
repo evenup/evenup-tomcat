@@ -17,7 +17,7 @@ class tomcat::monitoring::sensu {
   # Checking httpd is running
   sensu::check { 'tomcat-running':
     handlers    => 'default',
-    command     => '/etc/sensu/plugins/check-procs.rb -p -Dcatalina.base=/usr/share/tomcat -w 100 -c 200 -C 1',
+    command     => '/etc/sensu/plugins/check-procs.rb -p -Dcatalina.base=/usr/share/tomcat -C 1',
     custom      => { 'refresh' => 1800 },
   }
 
