@@ -33,6 +33,11 @@
 #   String.  Password to set for the admin user
 #   Default: changeme
 #
+# [*java_opts*]
+#   String.  Java options to pass to tomcat
+#   Default: -XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m
+#
+#
 # [*monitoring*]
 #   String.  Which monitoring system checks to install
 #   Default: ''
@@ -62,6 +67,7 @@ class tomcat(
   $auto_upgrade   = false,
   $static_url     = '',
   $admin_pass     = 'changeme',
+  $java_opts      = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m',
   $monitoring     = '',
 ) {
 
@@ -84,6 +90,7 @@ class tomcat(
   class { 'tomcat::config':
     install_dir => $install_dir,
     admin_pass  => $admin_pass,
+    java_opts   => $java_opts,
   }
 
   class { 'tomcat::service':

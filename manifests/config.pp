@@ -15,6 +15,7 @@
 class tomcat::config(
   $install_dir,
   $admin_pass,
+  $java_opts,
 ) {
 
   File {
@@ -44,7 +45,7 @@ class tomcat::config(
 
   file { "${install_dir}/tomcat/bin/setenv.sh":
     mode    => '0544',
-    source  => 'puppet:///modules/tomcat/setenv.sh',
+    content => template('tomcat/setenv.sh.erb'),
   }
 
   file { "${install_dir}/tomcat/bin/web.xml":

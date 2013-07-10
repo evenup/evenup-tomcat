@@ -1,0 +1,4 @@
+#!/bin/bash
+# Maintained by puppet - do not modify
+
+JAVA_OPTS="-Dfile.encoding=UTF-8 -Dcatalina.logbase=/var/log/tomcat <%= scope.lookupvar('java_opts') %>"
