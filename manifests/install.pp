@@ -74,6 +74,7 @@ class tomcat::install(
     target  => "${install_dir}/apache-tomcat-${version}",
     require => Exec['extract_tomcat'],
     replace => $auto_upgrade,
+    notify  => Class['tomcat::service'],
   }
 
   file { $sites_dir:

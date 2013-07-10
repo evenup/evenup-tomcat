@@ -95,8 +95,8 @@ class tomcat(
   anchor { 'tomcat::end': }
 
   Anchor['tomcat::begin'] ->
-  Class['tomcat::install'] ~>
-  Class['tomcat::config'] ~>
+  Class['tomcat::install'] ->
+  Class['tomcat::config'] ->
   Class['tomcat::service'] ->
   Anchor['tomcat::end']
 

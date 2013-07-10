@@ -21,7 +21,8 @@ class tomcat::config(
     ensure  => 'file',
     owner   => 'tomcat',
     group   => 'tomcat',
-    mode    => '0444'
+    mode    => '0444',
+    notify  => Class['tomcat::service'],
   }
 
   file { "${install_dir}/tomcat/conf/catalina.policy":
