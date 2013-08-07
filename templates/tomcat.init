@@ -33,7 +33,6 @@ start() {
     echo "Tomcat is already running (pid: $pid)"
   else
     echo "Starting tomcat"
-    umask 007
     /bin/su tomcat $TOMCAT_HOME/bin/startup.sh
   fi
 

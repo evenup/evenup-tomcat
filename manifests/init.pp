@@ -37,6 +37,9 @@
 #   String.  Java options to pass to tomcat
 #   Default: -XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m
 #
+# [*mange_service*]
+#   Boolean.  Whether puppet should manage the service
+#   Default: true
 #
 # [*monitoring*]
 #   String.  Which monitoring system checks to install
@@ -68,6 +71,7 @@ class tomcat(
   $static_url     = '',
   $admin_pass     = 'changeme',
   $java_opts      = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m',
+  $manage_service = true,
   $monitoring     = '',
 ) {
 
@@ -94,6 +98,7 @@ class tomcat(
   }
 
   class { 'tomcat::service':
+    manage      => $manage_service,
     monitoring  => $monitoring,
   }
 

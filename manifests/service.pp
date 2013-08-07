@@ -13,12 +13,15 @@
 # Copyright 2013 EvenUp.
 #
 class tomcat::service (
-  $monitoring
+  $manage     = true,
+  $monitoring = '',
 ) {
 
-  service { 'tomcat':
-    ensure  => running,
-    enable  => true;
+  if $manage {
+    service { 'tomcat':
+      ensure  => running,
+      enable  => true,
+    }
   }
 
   # Monitoring
