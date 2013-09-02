@@ -48,10 +48,10 @@
 define tomcat::vhost (
   $hostname = '',
   $aliases = '',
-  $unpackWARs = 'true',
-  $autoDeploy = 'true',
+  $unpackWARs = true,
+  $autoDeploy = true,
   $contexts = '',
-  $contextReloadable = 'false',
+  $contextReloadable = false,
 ){
 
   include tomcat
