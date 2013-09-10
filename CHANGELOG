@@ -1,3 +1,4 @@
+  Ensure service managability of service is bool
 v0.8.0:
   Allow puppet to not manage the service
 v0.7.1:
