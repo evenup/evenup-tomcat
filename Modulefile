@@ -1,5 +1,5 @@
 name 'evenup-tomcat'
-version '0.8.0'
+version '0.8.1'
 author 'Justin Lambert <jlambert@letsevenup.com>'
 license 'Apache'
 project_page 'https://github.com/evenup/evenup-tomcat'
