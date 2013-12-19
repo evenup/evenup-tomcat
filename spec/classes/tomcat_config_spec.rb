@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'tomcat::config', :type => :class do
+describe 'tomcat::config', :type  => :class do
   let(:facts) { { :concat_basedir => '/var/lib/puppet/concat' } }
-  let(:params) { { :install_dir => '/usr/share', :admin_pass => 'mysecret', :java_opts => '' } }
+  let(:params) { { :install_dir => '/usr/share', :admin_pass => 'mysecret', :java_opts => '', :header_fragment => false, :footer_fragment => false } }
 
   it { should create_class('tomcat::config') }
   it { should contain_file('/usr/share/tomcat/conf/catalina.policy') }

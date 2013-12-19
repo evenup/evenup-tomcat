@@ -16,7 +16,19 @@ class tomcat::config(
   $install_dir,
   $admin_pass,
   $java_opts,
+  $header_fragment,
+  $footer_fragment
 ) {
+
+  # are we overriding the concat fragments?
+  $real_header_fragment = $tomcat::config::header_fragment ? {
+    false   => 'tomcat/server.xml.header',
+    default => $tomcat::config::header_fragment,
+  }
+  $real_footer_fragment = $tomcat::config::footer_fragment ? {
+    false   => 'tomcat/server.xml.footer',
+    default => $tomcat::config::footer_fragment,
+  }
 
   File {
     ensure  => 'file',
@@ -77,13 +89,13 @@ class tomcat::config(
 
   concat::fragment{ 'server_xml_header':
     target  => "${install_dir}/tomcat/conf/server.xml",
-    content => template('tomcat/server.xml.header'),
+    content => template($tomcat::config::real_header_fragment),
     order   => 01,
   }
 
   concat::fragment{ 'server_xml_footer':
     target  => "${install_dir}/tomcat/conf/server.xml",
-    content => template('tomcat/server.xml.footer'),
+    content => template($tomcat::config::real_footer_fragment),
     order   => 99,
   }
 
