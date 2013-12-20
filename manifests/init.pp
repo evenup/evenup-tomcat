@@ -46,11 +46,24 @@
 #   Default: ''
 #   Valid options: sensu
 #
+# [*header_fragment*]
+#   String.  Path to a template to be evaluated inside tomcat::config, which will generate the server.xml header.
+#   Default: false
+#
+# [*footer_fragment*]
+#   String.  Path to a template to be evaluated inside tomcat::config, which will generate the server.xml footer.
+#   Default: false
+#
 #
 # === Examples
 #
 # * Installation:
 #     class { 'tomcat': }
+#
+# * Installation (custom server.xml header):
+#     class { 'tomcat':
+#       header_fragment => 'my_custom_module/server.xml.header.erb',
+#     }
 #
 #
 # === Authors
@@ -63,16 +76,18 @@
 # Copyright 2013 EvenUp.
 #
 class tomcat(
-  $install_dir    = '/usr/share',
-  $log_dir        = '/var/log/tomcat',
-  $sites_sub_dir  = 'sites',
-  $version        = '7.0.40',
-  $auto_upgrade   = false,
-  $static_url     = '',
-  $admin_pass     = 'changeme',
-  $java_opts      = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m',
-  $manage_service = true,
-  $monitoring     = '',
+  $install_dir     = '/usr/share',
+  $log_dir         = '/var/log/tomcat',
+  $sites_sub_dir   = 'sites',
+  $version         = '7.0.40',
+  $auto_upgrade    = false,
+  $static_url      = '',
+  $admin_pass      = 'changeme',
+  $java_opts       = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m',
+  $manage_service  = true,
+  $monitoring      = '',
+  $header_fragment = false,
+  $footer_fragment = false
 ) {
 
   $sites_dir = "${install_dir}/tomcat/${sites_sub_dir}"
@@ -92,9 +107,11 @@ class tomcat(
   }
 
   class { 'tomcat::config':
-    install_dir => $install_dir,
-    admin_pass  => $admin_pass,
-    java_opts   => $java_opts,
+    install_dir     => $install_dir,
+    admin_pass      => $admin_pass,
+    java_opts       => $java_opts,
+    header_fragment => $header_fragment,
+    footer_fragment => $footer_fragment,
   }
 
   class { 'tomcat::service':
