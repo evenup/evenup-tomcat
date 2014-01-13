@@ -6,9 +6,6 @@ their config.  This module supports tomcat vhosts, managing WARs, and
 configuration located within a decompressed war.  This module also includes
 an init script for RHEL based systems.
 
-Monitoring by [sensu](http://sensuapp.org) is provided, not required, and
-additional monitoring solutions can easily be added.
-
 
 Usage:
 ------

@@ -4,7 +4,6 @@ fixtures:
     concat: https://github.com/ripienaar/puppet-concat.git
     java: https://github.com/evenup/evenup-java.git
     logrotate: https://github.com/evenup/evenup-logrotate.git
-    sensu: https://github.com/sensu/sensu-puppet.git
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
   symlinks:
     tomcat: "#{source_dir}"

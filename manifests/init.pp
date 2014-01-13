@@ -41,11 +41,6 @@
 #   Boolean.  Whether puppet should manage the service
 #   Default: true
 #
-# [*monitoring*]
-#   String.  Which monitoring system checks to install
-#   Default: ''
-#   Valid options: sensu
-#
 # [*header_fragment*]
 #   String.  Path to a template to be evaluated inside tomcat::config, which will generate the server.xml header.
 #   Default: false
@@ -85,7 +80,6 @@ class tomcat(
   $admin_pass      = 'changeme',
   $java_opts       = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m',
   $manage_service  = true,
-  $monitoring      = '',
   $header_fragment = false,
   $footer_fragment = false
 ) {
@@ -116,7 +110,6 @@ class tomcat(
 
   class { 'tomcat::service':
     manage      => $manage_service,
-    monitoring  => $monitoring,
   }
 
   # Containment
