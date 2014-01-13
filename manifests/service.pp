@@ -14,7 +14,6 @@
 #
 class tomcat::service (
   $manage     = true,
-  $monitoring = '',
 ) {
 
   $manage_real = str2bool($manage)
@@ -24,13 +23,4 @@ class tomcat::service (
       enable  => true,
     }
   }
-
-  # Monitoring
-  case $monitoring {
-    'sensu':  {
-      class { 'tomcat::monitoring::sensu': }
-    }
-    default: {}
-  }
-
 }
