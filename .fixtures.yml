@@ -1,7 +1,7 @@
 fixtures:
   repositories:
     artifactory: https://github.com/evenup/evenup-artifactory.git
-    concat: https://github.com/ripienaar/puppet-concat.git
+    concat: https://github.com/puppetlabs/puppetlabs-concat.git
     java: https://github.com/evenup/evenup-java.git
     logrotate: https://github.com/evenup/evenup-logrotate.git
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
