@@ -16,6 +16,7 @@ class tomcat::config(
   $install_dir,
   $admin_pass,
   $java_opts,
+  $env_vars,
   $header_fragment,
   $footer_fragment
 ) {

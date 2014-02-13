@@ -37,6 +37,10 @@
 #   String.  Java options to pass to tomcat
 #   Default: -XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m
 #
+# [*env_vars*]
+#   Array.  Additional environment variables to pass to Tomcat, in the form KEY=VALUE
+#   Default: []
+#
 # [*mange_service*]
 #   Boolean.  Whether puppet should manage the service
 #   Default: true
@@ -79,6 +83,7 @@ class tomcat(
   $static_url      = '',
   $admin_pass      = 'changeme',
   $java_opts       = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m',
+  $env_vars        = [],
   $manage_service  = true,
   $header_fragment = false,
   $footer_fragment = false
@@ -104,6 +109,7 @@ class tomcat(
     install_dir     => $install_dir,
     admin_pass      => $admin_pass,
     java_opts       => $java_opts,
+    env_vars        => $env_vars,
     header_fragment => $header_fragment,
     footer_fragment => $footer_fragment,
   }
