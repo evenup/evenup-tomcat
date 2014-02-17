@@ -2,8 +2,8 @@
 # Maintained by puppet - do not modify
 
 <% if @env_vars -%>
-<% Array(@env_vars).each do |var| %>
+<% Array(@env_vars).each do |var| -%>
 export <%= var %>
-<% end %>
+<% end -%>
 <% end -%>
 JAVA_OPTS="-Dfile.encoding=UTF-8 -Dcatalina.logbase=/var/log/tomcat <%= @java_opts %>"
