@@ -28,19 +28,19 @@ class tomcat::install(
   }
 
   group { 'tomcat':
-    ensure  => 'present',
-    system  => true
+    ensure => 'present',
+    system => true
   }
 
   user { 'tomcat':
-    ensure      => present,
-    comment     => 'Tomcat Service User',
-    system      => true,
-    gid         => 'tomcat',
-    home        => "${install_dir}/tomcat",
-    shell       => '/bin/bash',
-    managehome  => false,
-    require     => Group['tomcat'];
+    ensure     => present,
+    comment    => 'Tomcat Service User',
+    system     => true,
+    gid        => 'tomcat',
+    home       => "${install_dir}/tomcat",
+    shell      => '/bin/bash',
+    managehome => false,
+    require    => Group['tomcat'];
   }
 
   file { '/etc/init.d/tomcat':
@@ -78,15 +78,15 @@ class tomcat::install(
   }
 
   file { $sites_dir:
-    ensure  => directory,
-    owner   => tomcat,
-    group   => tomcat,
-    mode    => $sites_mode,
+    ensure => directory,
+    owner  => tomcat,
+    group  => tomcat,
+    mode   => $sites_mode,
   }
 
   file { "${sites_dir}/logs":
-    ensure  => link,
-    target  => $log_dir,
+    ensure => link,
+    target => $log_dir,
   }
 
   file { $log_dir:

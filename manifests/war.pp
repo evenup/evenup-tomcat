@@ -67,14 +67,14 @@ define tomcat::war (
   case $source {
     'artifactory':  {
       artifactory::fetch_artifact { $name:
-        project       => $project,
-        version       => $version,
-        format        => 'war',
-        path          => $path,
-        install_path  => "${tomcat::sites_dir}/${site}",
-        filename      => $filename,
-        require       => File[$tomcat::sites_dir],
-        before        => File["${tomcat::sites_dir}/${site}/${link_name}"]
+        project      => $project,
+        version      => $version,
+        format       => 'war',
+        path         => $path,
+        install_path => "${tomcat::sites_dir}/${site}",
+        filename     => $filename,
+        require      => File[$tomcat::sites_dir],
+        before       => File["${tomcat::sites_dir}/${site}/${link_name}"]
       }
     }
     default: {

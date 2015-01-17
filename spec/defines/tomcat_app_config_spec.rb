@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'tomcat::app_config', :type => :define do
   let(:title) { 'tomcat_config' }
-  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat' } }
+  let(:facts) { { :disposition => 'prod', :osfamily => 'RedHat', :concat_basedir => '/var/lib/puppet/concat', :id => '0', :path => '/tmp' } }
 
   context 'no reload' do
     let(:params) { {
