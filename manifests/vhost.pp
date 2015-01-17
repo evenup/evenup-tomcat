@@ -40,11 +40,6 @@
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
 define tomcat::vhost (
   $hostname = '',
   $aliases = '',
@@ -54,7 +49,9 @@ define tomcat::vhost (
   $contextReloadable = false,
 ){
 
-  include tomcat
+  if !defined(Class['tomcat']) {
+    fail('You must include the tomcat base class before using any tomcat defined resources')
+  }
 
   $sites_mode = $::disposition ? {
     /(dev|vagrant)/ => '0777',

@@ -1,3 +1,6 @@
+  Renamed sites_sub_dir to sites_dir
+  Switched to puppetlabs/java
+  Removed evenup/logrotate
 20140217 - v0.11.0
   Add support for custom env variables (Daniel Silverman)
 20131413 - v0.10.0

@@ -14,8 +14,8 @@
     { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "12.04", "14.04" ] }
   ],
   "dependencies": [
-    { "name": "evenup/java", "version_requirement": ">=0.0.1" },
-    { "name": "puppetlabs/concat", "version_requirement": ">=0.0.1" },
-    { "name": "evenup/logrotate", "version_requirement": ">=0.0.1" }
+    { "name": "puppetlabs/java", "version_requirement": ">=1.0.0 <2.0.0" },
+    { "name": "puppetlabs/concat", "version_requirement": ">=1.1.0 <2.0.0" },
+    { "name": "puppetlabs/stdlib", "version_requirement": ">=3.2.0 <5.0.0" }
   ]
 }

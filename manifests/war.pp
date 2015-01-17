@@ -45,11 +45,6 @@
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
 define tomcat::war (
   $app,
   $site,
@@ -59,7 +54,9 @@ define tomcat::war (
   $version  = '',
 ) {
 
-  include tomcat
+  if !defined(Class['tomcat']) {
+    fail('You must include the tomcat base class before using any tomcat defined resources')
+  }
 
   $filename = "${app}.war-${version}"
   $link_name = "${app}.war"

@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'tomcat::vhost', :type => :define do
+  let(:pre_condition) { 'class { "tomcat": }' }
   let(:title) { 'myvhost' }
   let(:facts) { { :concat_basedir => '/var/lib/puppet/concat', :disposition => 'prod', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
 

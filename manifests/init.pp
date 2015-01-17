@@ -19,7 +19,7 @@
 #
 # [*version*]
 #   String.  Version of tomcat to be installed
-#   Default: 7.0.40
+#   Default: 7.0.57
 #
 # [*auto_upgrade*]
 #   Boolean.  Whether puppet will update the symlink for newer versions of tomcat
@@ -69,63 +69,30 @@
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
 class tomcat(
-  $install_dir     = '/usr/share',
-  $log_dir         = '/var/log/tomcat',
-  $sites_sub_dir   = 'sites',
-  $version         = '7.0.40',
-  $auto_upgrade    = false,
-  $static_url      = '',
-  $admin_pass      = 'changeme',
-  $java_opts       = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m',
-  $env_vars        = [],
-  $manage_service  = true,
-  $header_fragment = false,
-  $footer_fragment = false
-) {
+  $install_dir     = $::tomcat::params::install_dir,
+  $log_dir         = $::tomcat::params::log_dir,
+  $sites_dir       = $::tomcat::params::sites_dir,
+  $version         = $::tomcat::params::version,
+  $auto_upgrade    = $::tomcat::params::auto_upgrade,
+  $static_url      = $::tomcat::params::static_url,
+  $admin_pass      = $::tomcat::params::admin_pass,
+  $java_opts       = $::tomcat::params::java_opts,
+  $env_vars        = $::tomcat::params::env_vars,
+  $manage_service  = $::tomcat::params::manage_service,
+  $header_fragment = $::tomcat::params::header_fragment,
+  $footer_fragment = $::tomcat::params::footer_fragment,
+) inherits tomcat::params {
 
-  $sites_dir = "${install_dir}/tomcat/${sites_sub_dir}"
   $real_url = $static_url ? {
     ''      => "http://download.nextag.com/apache/tomcat/tomcat-7/v${version}/bin",
     default => $static_url
   }
-  require java
 
-  class { 'tomcat::install':
-    install_dir  => $install_dir,
-    log_dir      => $log_dir,
-    sites_dir    => $sites_dir,
-    version      => $version,
-    auto_upgrade => $auto_upgrade,
-    real_url     => $real_url,
-  }
-
-  class { 'tomcat::config':
-    install_dir     => $install_dir,
-    admin_pass      => $admin_pass,
-    java_opts       => $java_opts,
-    env_vars        => $env_vars,
-    header_fragment => $header_fragment,
-    footer_fragment => $footer_fragment,
-  }
-
-  class { 'tomcat::service':
-    manage => $manage_service,
-  }
-
-  # Containment
-  anchor { 'tomcat::begin': }
+  anchor { 'tomcat::begin': } ->
+  class { 'tomcat::install': } ->
+  class { 'tomcat::config': } ->
+  class { 'tomcat::service': } ->
   anchor { 'tomcat::end': }
-
-  Anchor['tomcat::begin'] ->
-  Class['tomcat::install'] ->
-  Class['tomcat::config'] ->
-  Class['tomcat::service'] ->
-  Anchor['tomcat::end']
 
 }

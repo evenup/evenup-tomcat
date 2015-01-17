@@ -7,19 +7,13 @@
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
-class tomcat::install(
-  $install_dir,
-  $log_dir,
-  $sites_dir,
-  $version,
-  $auto_upgrade,
-  $real_url,
-) {
+class tomcat::install {
+
+  if $caller_module_name != $module_name {
+    fail("Use of private class ${name} by ${caller_module_name}")
+  }
+
+  $install_dir = $::tomcat::install_dir
 
   $sites_mode = $::disposition ? {
     dev     => '0777',
@@ -52,18 +46,18 @@ class tomcat::install(
   }
 
   exec { 'fetch_tomcat':
-    command   => "/usr/bin/curl -o apache-tomcat-${version}.tar.gz ${real_url}/apache-tomcat-${version}.tar.gz",
+    command   => "/usr/bin/curl -o apache-tomcat-${::tomcat::version}.tar.gz ${::tomcat::real_url}/apache-tomcat-${::tomcat::version}.tar.gz",
     cwd       => '/tmp',
-    creates   => "/tmp/apache-tomcat-${version}.tar.gz",
+    creates   => "/tmp/apache-tomcat-${::tomcat::version}.tar.gz",
     path      => '/usr/bin/:/bin',
     logoutput => on_failure,
-    unless    => "/usr/bin/test -d ${install_dir}/apache-tomcat-${version}",
+    unless    => "/usr/bin/test -d ${install_dir}/apache-tomcat-${::tomcat::version}",
   }
 
   exec { 'extract_tomcat':
-    command   => "/bin/tar -xzf /tmp/apache-tomcat-${version}.tar.gz -C ${install_dir} && /bin/chown -R tomcat:tomcat ${install_dir}/apache-tomcat-${version} && rm -rf ${install_dir}/apache-tomcat-${version}/logs",
+    command   => "/bin/tar -xzf /tmp/apache-tomcat-${::tomcat::version}.tar.gz -C ${install_dir} && /bin/chown -R tomcat:tomcat ${install_dir}/apache-tomcat-${::tomcat::version} && rm -rf ${install_dir}/apache-tomcat-${::tomcat::version}/logs",
     cwd       => $install_dir,
-    creates   => "${install_dir}/apache-tomcat-${version}",
+    creates   => "${install_dir}/apache-tomcat-${::tomcat::version}",
     path      => '/bin/:/usr/bin/',
     require   => [Exec['fetch_tomcat'], User['tomcat']],
     logoutput => on_failure,
@@ -71,25 +65,25 @@ class tomcat::install(
 
   file { "${$install_dir}/tomcat":
     ensure  => 'link',
-    target  => "${install_dir}/apache-tomcat-${version}",
+    target  => "${install_dir}/apache-tomcat-${::tomcat::version}",
     require => Exec['extract_tomcat'],
-    replace => $auto_upgrade,
+    replace => $::tomcat::auto_upgrade,
     notify  => Class['tomcat::service'],
   }
 
-  file { $sites_dir:
+  file { $::tomcat::sites_dir:
     ensure => directory,
     owner  => tomcat,
     group  => tomcat,
     mode   => $sites_mode,
   }
 
-  file { "${sites_dir}/logs":
+  file { "${::tomcat::sites_dir}/logs":
     ensure => link,
-    target => $log_dir,
+    target => $::tomcat::log_dir,
   }
 
-  file { $log_dir:
+  file { $::tomcat::log_dir:
     ensure => directory,
     mode   => '0644',
     owner  => tomcat,
@@ -98,8 +92,8 @@ class tomcat::install(
 
   file { "${install_dir}/tomcat/logs":
     ensure  => link,
-    target  => $log_dir,
-    require => [File[$log_dir], Exec['extract_tomcat']],
+    target  => $::tomcat::log_dir,
+    require => [File[$::tomcat::log_dir], Exec['extract_tomcat']],
   }
 
   # Remove the default tomcat apps
