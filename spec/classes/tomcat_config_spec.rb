@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'tomcat', :type  => :class do
   let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
-  let(:params) { { :install_dir => '/usr/share', :admin_pass => 'mysecret', :java_opts => '', :env_vars => false, :header_fragment => false, :footer_fragment => false } }
 
   it { should create_class('tomcat::config') }
   it { should contain_file('/usr/share/tomcat/conf/catalina.policy') }
@@ -20,6 +19,5 @@ describe 'tomcat', :type  => :class do
   it { should contain_concat('/usr/share/tomcat/conf/server.xml') }
   it { should contain_concat__fragment('server_xml_header') }
   it { should contain_concat__fragment('server_xml_footer') }
-  it { should contain_logrotate__file('tomcat') }
 
 end

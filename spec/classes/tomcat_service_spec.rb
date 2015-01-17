@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'tomcat::service', :type => :class do
-  let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat' } }
+describe 'tomcat', :type => :class do
+  let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
 
   it { should create_class('tomcat::service') }
   it { should contain_service('tomcat').with(
@@ -10,7 +10,7 @@ describe 'tomcat::service', :type => :class do
   ) }
 
   context 'not managed' do
-    let(:params) { { :manage => false } }
+    let(:params) { { :manage_service => false } }
     it { should_not contain_service('tomcat') }
   end
 

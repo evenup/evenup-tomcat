@@ -7,20 +7,17 @@
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
-class tomcat::service (
-  $manage     = true,
-) {
+class tomcat::service {
 
-  $manage_real = str2bool($manage)
-  if $manage_real == true {
+  if $caller_module_name != $module_name {
+    fail("Use of private class ${name} by ${caller_module_name}")
+  }
+
+  if $::tomcat::manage_service == true {
     service { 'tomcat':
-      ensure => running,
-      enable => true,
+      ensure  => running,
+      enable  => true,
+      require => Class['java']
     }
   }
 }

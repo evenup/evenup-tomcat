@@ -7,29 +7,16 @@
 #
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
-class tomcat::config(
-  $install_dir,
-  $admin_pass,
-  $java_opts,
-  $env_vars,
-  $header_fragment,
-  $footer_fragment
-) {
+class tomcat::config {
 
-  # are we overriding the concat fragments?
-  $real_header_fragment = $tomcat::config::header_fragment ? {
-    false   => 'tomcat/server.xml.header',
-    default => $tomcat::config::header_fragment,
+  if $caller_module_name != $module_name {
+    fail("Use of private class ${name} by ${caller_module_name}")
   }
-  $real_footer_fragment = $tomcat::config::footer_fragment ? {
-    false   => 'tomcat/server.xml.footer',
-    default => $tomcat::config::footer_fragment,
-  }
+
+  $install_dir = $::tomcat::install_dir
+  $admin_pass = $::tomcat::admin_pass
+  $java_opts = $::tomcat::java_opts
+  $env_vars = $::tomcat::env_vars
 
   File {
     ensure => 'file',
@@ -90,21 +77,14 @@ class tomcat::config(
 
   concat::fragment{ 'server_xml_header':
     target  => "${install_dir}/tomcat/conf/server.xml",
-    content => template($tomcat::config::real_header_fragment),
+    content => template($::tomcat::header_fragment),
     order   => 01,
   }
 
   concat::fragment{ 'server_xml_footer':
     target  => "${install_dir}/tomcat/conf/server.xml",
-    content => template($tomcat::config::real_footer_fragment),
+    content => template($::tomcat::footer_fragment),
     order   => 99,
-  }
-
-  # Logrotate for tomcat logs
-  logrotate::file { 'tomcat':
-    ensure  => 'present',
-    log     => "${tomcat::log_dir}/catalina.out",
-    options => ['missingok', 'notifempty', 'copytruncate', 'sharedscripts', 'daily', 'compress'],
   }
 
 }
