@@ -97,12 +97,12 @@ class tomcat(
   require java
 
   class { 'tomcat::install':
-    install_dir   => $install_dir,
-    log_dir       => $log_dir,
-    sites_dir     => $sites_dir,
-    version       => $version,
-    auto_upgrade  => $auto_upgrade,
-    real_url      => $real_url,
+    install_dir  => $install_dir,
+    log_dir      => $log_dir,
+    sites_dir    => $sites_dir,
+    version      => $version,
+    auto_upgrade => $auto_upgrade,
+    real_url     => $real_url,
   }
 
   class { 'tomcat::config':
@@ -115,7 +115,7 @@ class tomcat(
   }
 
   class { 'tomcat::service':
-    manage      => $manage_service,
+    manage => $manage_service,
   }
 
   # Containment

@@ -71,10 +71,10 @@ define tomcat::vhost (
   $appBase_real = "sites/${hostname_real}"
 
   file { "${install_dir}/tomcat/sites/${hostname_real}":
-    ensure  => directory,
-    owner   => tomcat,
-    group   => tomcat,
-    mode    => $sites_mode,
+    ensure => directory,
+    owner  => tomcat,
+    group  => tomcat,
+    mode   => $sites_mode,
   }
 
   concat::fragment{ "server_xml_${name}":

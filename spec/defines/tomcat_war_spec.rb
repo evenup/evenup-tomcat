@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'tomcat::war', :type => :define do
   let(:title) { 'mywar' }
-  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat' } }
+  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat', :disposition => 'prod', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
 
   context 'artifactory source' do
     let(:params) { {

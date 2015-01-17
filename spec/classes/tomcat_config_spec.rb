@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe 'tomcat::config', :type  => :class do
-  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat' } }
+describe 'tomcat', :type  => :class do
+  let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
   let(:params) { { :install_dir => '/usr/share', :admin_pass => 'mysecret', :java_opts => '', :env_vars => false, :header_fragment => false, :footer_fragment => false } }
 
   it { should create_class('tomcat::config') }

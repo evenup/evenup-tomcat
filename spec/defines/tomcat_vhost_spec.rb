@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'tomcat::vhost', :type => :define do
   let(:title) { 'myvhost' }
-  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat' } }
+  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat', :disposition => 'prod', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
 
   context 'default' do
     it { should contain_file('/usr/share/tomcat/sites/myvhost').with_mode('0775') }
@@ -18,12 +18,12 @@ describe 'tomcat::vhost', :type => :define do
   end
 
   context 'vagrant node' do
-    let(:facts) { { :disposition => 'vagrant', :concat_basedir => '/var/lib/puppet/concat' } }
+    let(:facts) { { :disposition => 'vagrant', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
     it { should contain_file('/usr/share/tomcat/sites/myvhost').with_mode('0777') }
   end
 
   context 'dev node' do
-    let(:facts) { { :disposition => 'dev', :concat_basedir => '/var/lib/puppet/concat' } }
+    let(:facts) { { :disposition => 'dev', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
     it { should contain_file('/usr/share/tomcat/sites/myvhost').with_mode('0777') }
   end
 

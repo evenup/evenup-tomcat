@@ -61,8 +61,8 @@ define tomcat::app_config(
   include tomcat
 
   $real_notify = $reload_tomcat ? {
-    /true|True|'true'|1/  => Class['tomcat::service'],
-    default               => ''
+    /true|True|'true'|1/ => Class['tomcat::service'],
+    default              => ''
   }
 
   file {

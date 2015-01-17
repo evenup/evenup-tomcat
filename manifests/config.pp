@@ -32,23 +32,23 @@ class tomcat::config(
   }
 
   File {
-    ensure  => 'file',
-    owner   => 'tomcat',
-    group   => 'tomcat',
-    mode    => '0444',
-    notify  => Class['tomcat::service'],
+    ensure => 'file',
+    owner  => 'tomcat',
+    group  => 'tomcat',
+    mode   => '0444',
+    notify => Class['tomcat::service'],
   }
 
   file { "${install_dir}/tomcat/conf/catalina.policy":
-    source  => 'puppet:///modules/tomcat/catalina.policy',
+    source => 'puppet:///modules/tomcat/catalina.policy',
   }
 
   file { "${install_dir}/tomcat/conf/context.xml":
-    source  => 'puppet:///modules/tomcat/context.xml',
+    source => 'puppet:///modules/tomcat/context.xml',
   }
 
   file { "${install_dir}/tomcat/conf/logging.properties":
-    source  => 'puppet:///modules/tomcat/logging.properties',
+    source => 'puppet:///modules/tomcat/logging.properties',
   }
 
   file { "${install_dir}/tomcat/conf/tomcat-users.xml":
@@ -62,7 +62,7 @@ class tomcat::config(
   }
 
   file { "${install_dir}/tomcat/bin/web.xml":
-    source  => 'puppet:///modules/tomcat/web.xml',
+    source => 'puppet:///modules/tomcat/web.xml',
   }
 
   file { "${install_dir}/tomcat/conf/Catalina":
@@ -82,10 +82,10 @@ class tomcat::config(
 
   concat{
     "${install_dir}/tomcat/conf/server.xml":
-      owner   => tomcat,
-      group   => tomcat,
-      mode    => 0444,
-      notify  => Class['tomcat::service'],
+      owner  => tomcat,
+      group  => tomcat,
+      mode   => 0444,
+      notify => Class['tomcat::service'],
   }
 
   concat::fragment{ 'server_xml_header':

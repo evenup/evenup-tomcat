@@ -19,8 +19,8 @@ class tomcat::service (
   $manage_real = str2bool($manage)
   if $manage_real == true {
     service { 'tomcat':
-      ensure  => running,
-      enable  => true,
+      ensure => running,
+      enable => true,
     }
   }
 }
