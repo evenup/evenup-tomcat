@@ -49,13 +49,18 @@ define tomcat::war (
   $app,
   $site,
   $source,
-  $project  = '',
-  $path     = '',
-  $version  = '',
+  $project    = '',
+  $path       = '',
+  $version    = '',
+  $war_source = undef,
 ) {
 
   if !defined(Class['tomcat']) {
     fail('You must include the tomcat base class before using any tomcat defined resources')
+  }
+
+  if !defined(Tomcat::Vhost[$site]) {
+    fail("You must include the tomcat site before adding WARs to it.  tomcat::vhost {'${site}': } needed at a minimum")
   }
 
   $filename = "${app}.war-${version}"
@@ -68,10 +73,17 @@ define tomcat::war (
         version      => $version,
         format       => 'war',
         path         => $path,
-        install_path => "${tomcat::sites_dir}/${site}",
+        install_path => "${::tomcat::sites_dir}/${site}",
         filename     => $filename,
-        require      => File[$tomcat::sites_dir],
-        before       => File["${tomcat::sites_dir}/${site}/${link_name}"]
+        require      => File[$::tomcat::sites_dir],
+        before       => File["${::tomcat::sites_dir}/${site}/${link_name}"],
+      }
+    }
+    'http': {
+      staging::file { $filename:
+        source => $war_source,
+        target => "${::tomcat::sites_dir}/${site}/${filename}",
+        before => File["${::tomcat::sites_dir}/${site}/${link_name}"],
       }
     }
     default: {

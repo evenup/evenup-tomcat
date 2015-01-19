@@ -3,6 +3,7 @@ fixtures:
     artifactory: https://github.com/evenup/evenup-artifactory.git
     concat: https://github.com/puppetlabs/puppetlabs-concat.git
     java: https://github.com/puppetlabs/puppetlabs-java.git
+    staging: https://github.com/nanliu/puppet-staging.git
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
   symlinks:
     tomcat: "#{source_dir}"
