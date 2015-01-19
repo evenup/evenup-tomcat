@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'tomcat', :type => :class do
-  let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
+  let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :operatingsystem => 'CentOS', :operatingsystemrelease => '7.0', :id => '0', :path => '/tmp' } }
   let(:params) { {
     :install_dir  => '/install_path',
     :log_dir      => '/mylogs',
@@ -36,17 +36,17 @@ describe 'tomcat', :type => :class do
   end
 
   context "when on a prod machine" do
-    let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
+    let(:facts) { { :disposition => 'prod', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :operatingsystem => 'CentOS', :operatingsystemrelease => '7.0', :id => '0', :path => '/tmp' } }
     it { should contain_file('/data/sites').with_mode('0775') }
   end
 
   context "when on a dev machine" do
-    let(:facts) { { :disposition => 'dev', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
+    let(:facts) { { :disposition => 'dev', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :operatingsystem => 'CentOS', :operatingsystemrelease => '7.0', :id => '0', :path => '/tmp' } }
     it { should contain_file('/data/sites').with_mode('0777') }
   end
 
   context "when on a vagrant machine" do
-    let(:facts) { { :disposition => 'vagrant', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :id => '0', :path => '/tmp' } }
+    let(:facts) { { :disposition => 'vagrant', :concat_basedir => '/var/lib/puppet/concat', :osfamily => 'RedHat', :operatingsystem => 'CentOS', :operatingsystemrelease => '7.0', :id => '0', :path => '/tmp' } }
     it { should contain_file('/data/sites').with_mode('0777') }
   end
 

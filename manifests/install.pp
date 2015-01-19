@@ -21,6 +21,10 @@ class tomcat::install {
     default => '0775',
   }
 
+  if !defined(Package['unzip']) {
+    package { 'unzip': ensure => 'installed' }
+  }
+
   group { 'tomcat':
     ensure => 'present',
     system => true
@@ -42,7 +46,7 @@ class tomcat::install {
     mode    => '0555',
     owner   => root,
     group   => root,
-    content => template('tomcat/tomcat.init'),
+    content => template('tomcat/tomcat.init.erb'),
   }
 
   exec { 'fetch_tomcat':
