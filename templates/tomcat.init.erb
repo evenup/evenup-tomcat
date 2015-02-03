@@ -16,7 +16,7 @@
 
 ## Source function library.
 #. /etc/rc.d/init.d/functions
-source /etc/profile.d/java.sh
+JAVA_HOME=/etc/alternatives/jre
 PATH=$JAVA_HOME/bin:$PATH
 export PATH
 TOMCAT_HOME=<%= scope.lookupvar('install_dir') %>/tomcat
