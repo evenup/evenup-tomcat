@@ -84,17 +84,18 @@ class tomcat(
   $footer_fragment = $::tomcat::params::footer_fragment,
 ) inherits tomcat::params {
 
-  include java
+  include ::java
 
-  $real_url = $static_url ? {
-    ''      => "http://download.nextag.com/apache/tomcat/tomcat-7/v${version}/bin",
-    default => $static_url
+  if $static_url {
+    $real_url = $static_url
+  } else {
+    $real_url = "http://download.nextag.com/apache/tomcat/tomcat-7/v${version}/bin"
   }
 
-  anchor { 'tomcat::begin': } ->
-  class { 'tomcat::install': } ->
-  class { 'tomcat::config': } ->
-  class { 'tomcat::service': } ->
-  anchor { 'tomcat::end': }
+  anchor { '::tomcat::begin': } ->
+  class { '::tomcat::install': } ->
+  class { '::tomcat::config': } ->
+  class { '::tomcat::service': } ->
+  anchor { '::tomcat::end': }
 
 }

@@ -49,9 +49,9 @@ define tomcat::war (
   $app,
   $site,
   $source,
-  $project    = '',
-  $path       = '',
-  $version    = '',
+  $project    = undef,
+  $path       = undef,
+  $version    = undef,
   $war_source = undef,
 ) {
 
@@ -63,7 +63,12 @@ define tomcat::war (
     fail("You must include the tomcat site before adding WARs to it.  tomcat::vhost {'${site}': } needed at a minimum")
   }
 
-  $filename = "${app}.war-${version}"
+  if $version {
+    $filename = "${app}.war-${version}"
+  } else {
+    $filename = "${app}.war"
+  }
+
   $link_name = "${app}.war"
 
   case $source {

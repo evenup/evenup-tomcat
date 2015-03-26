@@ -71,20 +71,20 @@ class tomcat::config {
     "${install_dir}/tomcat/conf/server.xml":
       owner  => tomcat,
       group  => tomcat,
-      mode   => 0444,
+      mode   => '0444',
       notify => Class['tomcat::service'],
   }
 
   concat::fragment{ 'server_xml_header':
     target  => "${install_dir}/tomcat/conf/server.xml",
     content => template($::tomcat::header_fragment),
-    order   => 01,
+    order   => '01',
   }
 
   concat::fragment{ 'server_xml_footer':
     target  => "${install_dir}/tomcat/conf/server.xml",
     content => template($::tomcat::footer_fragment),
-    order   => 99,
+    order   => '99',
   }
 
 }

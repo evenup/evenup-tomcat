@@ -53,7 +53,7 @@ define tomcat::app_config(
   $replace = true,
 ){
 
-  include tomcat
+  include ::tomcat
 
   $real_notify = $reload_tomcat ? {
     /true|True|'true'|1/ => Class['tomcat::service'],

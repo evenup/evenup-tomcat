@@ -1,10 +1,13 @@
 fixtures:
-  repositories:
-    artifactory: https://github.com/evenup/evenup-artifactory.git
-    concat: https://github.com/puppetlabs/puppetlabs-concat.git
-    java: https://github.com/puppetlabs/puppetlabs-java.git
-    staging: https://github.com/nanliu/puppet-staging.git
-    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+  forge_modules:
+    artifactory: "evenup/artifactory"
+    concat:
+      repo: "puppetlabs/concat"
+      ref: "1.1.0"
+    java:
+      repo: "puppetlabs/java"
+      ref: "1.0.0"
+    staging: "nanliu/staging"
+    stdlib: "puppetlabs/stdlib"
   symlinks:
     tomcat: "#{source_dir}"
-

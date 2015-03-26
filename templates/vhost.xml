@@ -1,20 +1,20 @@
-      <Host name="<%= scope.lookupvar('hostname_real') -%>" appBase="<%= scope.lookupvar('appBase_real') -%>" unpackWARs="<%= scope.lookupvar('unpackWARs') -%>" autoDeploy="<%= scope.lookupvar('autoDeploy') -%>">
-<%  if scope.lookupvar('contexts').is_a? Array -%>
-<%    scope.lookupvar('contexts').each do |context| -%>
+      <Host name="<%= @hostname_real -%>" appBase="<%= @appBase_real -%>" unpackWARs="<%= @unpackWARs -%>" autoDeploy="<%= @autoDeploy -%>">
+<%  if @contexts.is_a? Array -%>
+<%    @contexts.each do |context| -%>
 <%      base = context['base'] || '' -%>
 <%      path = context['path'] || 'ROOT' -%>
 <%      reloadable = context['reloadable'] || 'false' -%>
         <Context path="<%= path -%>" docBase="<%= base -%>" reloadable="<%= reloadable -%>"/>
 <%    end -%>
 <%  end -%>
-        
-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="/var/log/tomcat/" prefix="<%= scope.lookupvar('hostname_real') -%>_access." suffix=".log" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-        <Logger className="org.apache.catalina.logger.FileLogger" directory="/var/log/tomcat/"  prefix="<%= scope.lookupvar('hostname_real') -%>." suffix=".log" timestamp="true"/>
-<%  if scope.lookupvar('aliases').is_a? Array -%>
-<%    scope.lookupvar('aliases').each do |aliasName| -%>
+
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="/var/log/tomcat/" prefix="<%= @hostname_real -%>_access." suffix=".log" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+        <Logger className="org.apache.catalina.logger.FileLogger" directory="/var/log/tomcat/"  prefix="<%= @hostname_real -%>." suffix=".log" timestamp="true"/>
+<%  if @aliases.is_a? Array -%>
+<%    @aliases.each do |aliasName| -%>
         <Alias><%= aliasName -%></Alias>
 <%    end -%>
-<%  elsif scope.lookupvar('aliases') != '' -%>
-        <Alias><%= scope.lookupvar('aliases') -%></Alias>
+<%  elsif @aliases -%>
+        <Alias><%= @aliases -%></Alias>
 <%  end -%>
       </Host>
