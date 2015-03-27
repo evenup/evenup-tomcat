@@ -13,11 +13,11 @@ class tomcat::service {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $::tomcat::manage_service == true {
+  if $::tomcat::manage_service {
     service { 'tomcat':
       ensure  => running,
       enable  => true,
-      require => Class['java']
+      require => Class['java'],
     }
   }
 }

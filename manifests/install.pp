@@ -16,9 +16,9 @@ class tomcat::install {
   $install_dir = $::tomcat::install_dir
 
   $sites_mode = $::disposition ? {
-    dev     => '0777',
-    vagrant => '0777',
-    default => '0775',
+    'dev'     => '0777',
+    'vagrant' => '0777',
+    default   => '0775',
   }
 
   if !defined(Package['unzip']) {
@@ -27,7 +27,7 @@ class tomcat::install {
 
   group { 'tomcat':
     ensure => 'present',
-    system => true
+    system => true,
   }
 
   user { 'tomcat':

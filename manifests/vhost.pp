@@ -41,11 +41,11 @@
 # * Justin Lambert <mailto:jlambert@letsevenup.com>
 #
 define tomcat::vhost (
-  $hostname = '',
-  $aliases = '',
+  $hostname = undef,
+  $aliases = undef,
   $unpackWARs = true,
   $autoDeploy = true,
-  $contexts = '',
+  $contexts = undef,
   $contextReloadable = false,
 ){
 
@@ -58,9 +58,10 @@ define tomcat::vhost (
     default         => '0775',
   }
 
-  $hostname_real = $hostname ? {
-    ''      => $name,
-    default => $hostname
+  if $hostname {
+    $hostname_real = $hostname
+  } else {
+    $hostname_real = $name
   }
 
   $install_dir = $tomcat::install_dir

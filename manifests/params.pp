@@ -6,7 +6,7 @@ class tomcat::params {
   $sites_dir       = '/usr/share/tomcat/sites'
   $version         = '7.0.57'
   $auto_upgrade    = false
-  $static_url      = ''
+  $static_url      = undef
   $admin_pass      = 'changeme'
   $java_opts       = '-XX:+DoEscapeAnalysis -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:PermSize=128m -XX:MaxPermSize=128m -Xms512m -Xmx512m'
   $env_vars        = []

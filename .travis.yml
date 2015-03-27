@@ -8,8 +8,6 @@ matrix:
   fast_finish: true
   include:
   - rvm: 1.8.7
-    env: PUPPET_GEM_VERSION="~> 2.7.0"
-  - rvm: 1.8.7
     env: PUPPET_GEM_VERSION="~> 3.1.0"
   - rvm: 1.8.7
     env: PUPPET_GEM_VERSION="~> 3.2.0"
@@ -59,7 +57,7 @@ notifications:
   email: false
   hipchat:
     rooms:
-      - secure: "rlfAny8f0Nkofxrj5WFWiABV9Z+c7FAtlxW2ofEfx6k/64UmT1kYpgHa+9W+\neEHvpcTOZ58WaXMX9uDXiav9R1LKMJ6Ro+mtWbw5qZeUq7hhb2JShBpOgl0g\nkueDqg7pZLfCc1p7bcOCgSzK1w7vuXEqHxZUElGy8GkMlFXkrKw="
+      - secure: bBFhBYzEQqIH29VtahTQD+28xka3Ywx3cdBHBmwq8UUuTjcMJJU5ecQRr/icAWQ3n5f8F4PIjkq8YYFc8/dKy52yrKtg/CxrdcaDTF0FDHRjw2WhKVdCvv9SNQfqO9wSxAFiqJI1ed+5OKiVH9JZ9mY4UgnX1+mG2alVtnMjXj8=
     template:
       - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message} (<a href="%{build_url}">Details</a>/<a href="%{compare_url}">Change view</a>)'
     format: html

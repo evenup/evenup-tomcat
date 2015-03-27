@@ -3,20 +3,19 @@ require 'spec_helper'
 describe 'tomcat::war', :type => :define do
   let(:pre_condition) { ['class { "tomcat": }', 'tomcat::vhost { "mysite": }'] }
   let(:title) { 'mywar' }
-  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat', :disposition => 'prod', :osfamily => 'RedHat', :operatingsystem => 'CentOS', :operatingsystemrelease => '7.0', :id => '0', :path => '/tmp' } }
+  let(:facts) { { :concat_basedir => '/var/lib/puppet/concat', :disposition => 'prod', :osfamily => 'RedHat', :operatingsystem => 'CentOS', :operatingsystemrelease => '7.0', :id => '0', :path => '/tmp', :kernel => 'Linux' } }
 
   context 'artifactory source' do
     let(:params) { {
       :app      => 'myapp',
+      :project  => 'myproject',
       :site     => 'mysite',
       :source   => 'artifactory',
       :version  => '1.2.3',
     } }
 
     it { should contain_artifactory__fetch_artifact('mywar').with(
-      :project  => '',
       :version  => '1.2.3',
-      :path     => '',
       :filename => 'myapp.war-1.2.3'
     )}
 
