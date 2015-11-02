@@ -13,7 +13,9 @@ Managed by puppet - do not modify
   <!--APR library loader. Documentation at /docs/apr.html -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
   <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+  <% if Gem::Version.new(@version) > Gem::Version.new('7.0.0') -%>
   <Listener className="org.apache.catalina.core.JasperListener" />
+  <% end -%>
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
