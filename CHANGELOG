@@ -1,3 +1,4 @@
+20150616 - v0.12.0
   Renamed sites_sub_dir to sites_dir
   Switched to puppetlabs/java
   Removed evenup/logrotate
